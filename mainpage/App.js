@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Text } from 'react-native';
+import { Alert, Button, TextInput, View, StyleSheet, Text , ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
@@ -22,10 +22,9 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+      <View style={{ flex: 1, alignItems: 'center' }}>
         <Button
-          title="Go to Details"
+          title="BUY NEW COURSE"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
             this.props.navigation.navigate('Details', {
@@ -83,17 +82,26 @@ class DetailsScreen extends React.Component {
   }
 ];
     return (
-      <Card title="CARD WITH DIVIDER">
-  {
+    <ScrollView>
+    {
     users.map((u, i) => {
       return (
+        <Card title={u.name}>
         <View key={i} style={styles.user}>
-          <Text style={styles.name}>{u.name}</Text>
+          <Text style={styles.name}>TRAINER : {u.trainer} </Text>
+          <Text style={styles.name}>COST : {u.cost} $</Text>
+          <Text style={styles.name}>DISCRIPTION : {u.discription} </Text>
+          <Button
+            title={'buy'}
+            style={styles.input}
+            // onPress={}
+          />
         </View>
+        </Card>
       );
     })
   }
-</Card>
+  </ScrollView>
     );
   }
 }
@@ -168,7 +176,7 @@ export default class App extends React.Component {
     }
   };
   render() {
-    if (this.state.Auth) {
+    if (!this.state.Auth) {
       return (
         <View style={styles.container}>
           <TextInput
